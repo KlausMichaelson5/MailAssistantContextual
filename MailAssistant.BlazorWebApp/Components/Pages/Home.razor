@@ -1,0 +1,141 @@
+﻿@page "/"
+@rendermode InteractiveServer
+@using MailAssistant.BlazorWebApp.Components.Models
+@using MailAssistant.BlazorWebApp.Interfaces
+@inject IEmailUIService emailService
+@inject IJSRuntime JS
+@inject NavigationManager Navigation
+@inject EmailInfoService emailToReview
+@inject EmailOptimizerService emailToOptimize
+
+<title>Home</title>
+
+
+<div class="container mt-5">
+    <div class="row d-flex align-items-stretch" style="overflow-y: auto;" id="homepage">
+        <!-- Top: Form for user input -->
+        <div class="row-md-4 d-flex flex-column flex-grow-1">
+            <div class="card flex-grow-1">
+                <div class="card-header">
+                    <h4>Email Drafting Input</h4>
+                    <div class="form-check form-switch float-end">
+                        <input class="form-check-input" type="checkbox" id="emailReplyToggle" @bind="isEmailReply">
+                        <label class="form-check-label" for="emailReplyToggle" style="color: @(isEmailReply ? "green" : "grey")">
+                            Email Reply
+                        </label>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <EditForm Model="@emailModel" OnValidSubmit="GenerateEmail" class="mx-1 mx-md-4">
+                        <DataAnnotationsValidator />
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label for="from">From:</label>
+                                <InputText id="from" class="form-control" @bind-Value="emailModel.EmailSender" placeholder="Enter sender email ID" />
+                                <ValidationMessage For="@(() => emailModel.EmailSender)" />
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="to">To:</label>
+                                <InputText id="to" class="form-control" @bind-Value="emailModel.EmailRecipient" placeholder="Enter recipient email ID" />
+                                <ValidationMessage For="@(() => emailModel.EmailRecipient)" />
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label for="subject">Subject:</label>
+                                <InputText id="subject" class="form-control" @bind-Value="emailModel.EmailSubject" placeholder="Enter email subject" />
+                                <ValidationMessage For="@(() => emailModel.EmailSubject)" />
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="purpose">Purpose:</label>
+                                <InputText id="purpose" class="form-control" @bind-Value="emailModel.EmailPurpose" placeholder="Enter email purpose" />
+                                <ValidationMessage For="@(() => emailModel.EmailPurpose)" />
+                            </div>
+                        </div>
+
+                        @if (!isEmailReply)
+                        {
+                            <div class="form-group mb-3">
+                                <label for="context">Context:</label>
+                                <InputTextArea id="context" class="form-control" @bind-Value="emailModel.EmailContext" rows="3" placeholder="Enter email context" />
+                                <ValidationMessage For="@(() => emailModel.EmailContext)" />
+                            </div>
+                        }
+                        else
+                        {
+                            <div class="form-group mb-3">
+                                <label for="receivedEmail">Received Email:</label>
+                                <InputTextArea id="receivedEmail" class="form-control" @bind-Value="emailModel.ReceivedEmail" rows="3" placeholder="Enter received email content" />
+                                <ValidationMessage For="@(() => emailModel.ReceivedEmail)" />
+                            </div>
+                        }
+                        <div class="form-group mb-3">
+                            <label for="typeOfMail">Type of Mail:</label>
+                            <InputSelect id="typeOfMail" class="form-control" @bind-Value="emailModel.TypeOfMail">
+                                <option value="">Select Type</option>
+                                <option value=@(MailType.Professional)>Professional</option>
+                                <option value=@(MailType.Casual)>Casual</option>
+                                <option value=@(MailType.Friendly)>Friendly</option>
+                            </InputSelect>
+                            <ValidationMessage For="@(() => emailModel.TypeOfMail)" />
+                        </div>
+                        <div class="d-flex">
+                            <div class="flex-grow-1">
+                                <button type="submit" class="btn btn-success w-100 rounded-start rounded-0">Generate</button>
+                            </div>
+                            <div class="flex-grow-1">
+                                <button type="button" class="btn btn-warning w-100 rounded-end rounded-0" @onclick="ClearForm">Clear</button>
+                            </div>
+                        </div>
+                    </EditForm>
+                </div>
+            </div>
+        </div>
+
+        <!-- Bottom: Generated email result -->
+        <div class="row-md-4 d-flex flex-column pt-5">
+            <div class="card flex-grow-1">
+                <div class="card-header">
+                    <h4>Assistant Generated Email</h4>
+                </div>
+                <div class="card-body">
+                    <div id="generatedEmail" style="height: auto;overflow-y: auto;">
+                        @if (isLoading)
+                        {
+                            <div class="d-flex justify-content-center">
+                                <img src="Images/AiLoading.gif" alt="Loading..." style="height:100px; width:1000px;" />
+                            </div>
+                        }
+                        @if(message!=string.Empty)
+                        {    
+                            <div class="d-flex justify-content-start mb-2">
+                                <div class="p-2 border-success rounded" sstyle="border: 3px solids">
+                                    <pre style="white-space: pre-wrap; word-wrap: break-word; overflow-wrap: break-word;">@message</pre>
+                                    <div class="mt-2">
+                                        <button class="btn btn-sm btn-link" @onclick="() => GenerateEmail()">
+                                            <i class="bi bi-arrow-clockwise">  Regenerate</i>
+                                        </button>
+                                        <button class="btn btn-sm btn-link" @onclick="() => CopyMessage(message)">
+                                            <i class="bi bi-clipboard">  Copy</i>
+                                        </button>
+                                        <button class="btn btn-sm btn-link" @onclick="() => ReviewMessage(message)">
+                                            <i class="bi bi-eye">  Review</i>
+                                        </button>
+                                        <button class="btn btn-sm btn-link" @onclick="() => ShareMessage(message)">
+                                            <i class="bi bi-send">  Send</i>
+                                        </button>
+                                        <button class="btn btn-sm btn-link" @onclick="() => AskChatbot(message)">
+                                           <i class="bi bi-send-plus-fill">  Chatbot</i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

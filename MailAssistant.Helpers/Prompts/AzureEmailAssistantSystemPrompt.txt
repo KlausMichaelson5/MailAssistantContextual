@@ -1,0 +1,10 @@
+﻿﻿{{$input}}
+Use the above information and generate a email.
+In the above information, If the type/tone of mail is present(eg:Proffesional,Casual,Friendly) Use that in generating the email.
+During email generation for greeting generation use timeplugin function to get current time and use that.
+Do not ask anything to user.
+Do not tell anything to user just give generated email as output.
+
+After you generate email and functions execution
+The generated email should be made gramatically correct.
+Analyse drafted email optimize it or add extra info as needed.

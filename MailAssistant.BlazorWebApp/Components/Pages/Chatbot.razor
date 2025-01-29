@@ -1,0 +1,66 @@
+﻿@page "/Chatbot"
+@rendermode InteractiveServer
+@using MailAssistant.BlazorWebApp.Components.Models
+@using MailAssistant.BlazorWebApp.Interfaces
+@using Microsoft.JSInterop
+@inject IChatUIService chatService
+@inject IJSRuntime JS
+@inject NavigationManager Navigation
+@inject EmailInfoService emailToReview
+@inject EmailOptimizerService emailToOptimize
+
+
+<title>Chatbot</title>
+
+<div class="container-fluid px-0">
+	<div class="border border-secondary rounded p-3 m-1" style="height: 65vh; overflow-y: auto;" id="messages">
+    <div class="d-flex justify-content-center" style="position: sticky; top: 0; z-index: 1000;">
+        <button class="btn btn-dark" @onclick="ClearMessages">
+            <i class="bi bi-chat-dots"></i> New Chat
+        </button>
+    </div>
+       
+        @foreach (var message in messages)
+        {
+				<div class="d-flex  @(message.MessageType == MessageType.User ? "justify-content-end" : "justify-content-start") mb-2">
+                    <div class="p-2 border-@(message.MessageType == MessageType.User ? "success" : "secondary") rounded" style="max-width: 50%;border: 3px solid;">
+                        <pre style="white-space: pre-wrap; word-wrap: break-word; overflow-wrap: break-word;">@message.Text</pre>
+                    @if (message.MessageType == MessageType.User)
+                    {
+                        <button class="btn btn-sm btn-link mx-3" @onclick="() => EditMessage(message)">
+                            <i class="bi bi-pencil">   Edit</i>
+                        </button>
+                    }
+                    else if (message.MessageType == MessageType.Bot)
+                    {
+                        <div class="d-flex justify-content-start my-2">
+                            <button class="btn btn-sm btn-link" @onclick="() => CopyMessage(message)">
+                                <i class="bi bi-clipboard">  Copy</i>
+                            </button>
+                            <button class="btn btn-sm btn-link" @onclick="() => ReviewMessage(message)">
+                                <i class="bi bi-eye">  Review</i>
+                            </button>
+                            <button class="btn btn-sm btn-link" @onclick="() => ShareMessage(message)">
+                                <i class="bi bi-send">  Send</i>
+                            </button>
+                        </div>
+                    }
+                   
+                </div>
+            </div>
+        }
+		@if (isLoading)
+		{
+			<div class="d-flex justify-content-start" style="width: 50%;">
+                <img src="Images/AiLoading.gif" alt="Loading..." style="height:100px; width:1000px;" />
+			</div>
+		}  
+    </div>
+   
+    <div class="d-flex align-items-center mt-3 px-1">
+		<textarea class="form-control mr-2" rows="4" placeholder="Type your message..." @bind="userRequest" @bind:event="oninput" @onkeydown="HandleKeyDown"></textarea>
+        <button class="btn btn-primary ms-1" @onclick="SendMessage">&#x27A4;</button>
+    </div>
+</div>
+
+
