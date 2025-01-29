@@ -2,13 +2,13 @@
 
 
  
-**Description**
+_**Description**_
 
 An application that helps users draft replies to emails by understanding the context and retrieving relevant information.
 
 
  
-**Implementation Steps**
+_**Implementation Steps**_
 
 Email Parsing: Allow users to input the email they received.
 
@@ -21,7 +21,7 @@ Function Calling: Enforce structure and etiquette in the email.
 User Review: Present the draft for user approval and editing.
 
  
-**Technologies Involved**
+_**Technologies Involved**_
 
 ChatGPT API with RAG and Function Calling
 
@@ -29,7 +29,7 @@ Email Integration Libraries / use a web application to mimic the outlook
 
 Frontend and Backend Frameworks (.net backend, any frontend framework is fine)
  
-**Example Use Case**
+_**Example Use Case**_
 
 Sales representatives can quickly generate personalized responses to client inquiries.
  
