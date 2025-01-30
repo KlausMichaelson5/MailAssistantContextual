@@ -1,4 +1,5 @@
-using MailAssistant.BlazorWebApp.Services;
+using MailAssistant.BlazorWebApp.Components.Models;
+using MailAssistant.BlazorWebApp.Interfaces;
 using Microsoft.AspNetCore.Components;
 
 namespace MailAssistant.BlazorWebApp.Components.Pages

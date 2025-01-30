@@ -1,27 +1,6 @@
 ﻿namespace MailAssistant.BlazorWebApp.Components.Models
 {
 	/// <summary>
-	/// Specifies the type of email.
-	/// </summary>
-	public enum MailType
-    {
-		/// <summary>
-		/// A professional email.
-		/// </summary>
-		Professional,
-
-		/// <summary>
-		/// A friendly email.
-		/// </summary>
-		Friendly,
-
-		/// <summary>
-		/// A casual email.
-		/// </summary>
-		Casual
-	}
-
-	/// <summary>
 	/// Specifies the type of message.
 	/// </summary>
 	internal enum MessageType

@@ -1,16 +1,8 @@
-﻿namespace MailAssistant.BlazorWebApp.Services
+﻿using MailAssistant.BlazorWebApp.Components.Models;
+using MailAssistant.BlazorWebApp.Interfaces;
+
+namespace MailAssistant.BlazorWebApp.Services
 {
-    public interface IEmailDisplayService
-    {
-        List<Email> GetEmails();
-    }
-
-    public class Email
-    {
-        public string Subject=string.Empty;
-        public string Body=string.Empty;
-    }
-
     public class EmailDisplayService : IEmailDisplayService
     {
         public List<Email> GetEmails()
