@@ -25,7 +25,7 @@ namespace MailAssistant.BlazorWebApp.Components.Pages
                     messages.Add(new Message { Text = emailToOptimize.Email, MessageType = MessageType.User });
                     StateHasChanged();
                     await JSHelper.CallJavaScriptFunctionAsync(JS, "scrollToBottom");
-                    var emailOptimizerPrompt = File.ReadAllText(configuration["Prompts:EmailOptimizer"]);
+                    var emailOptimizerPrompt = File.ReadAllText(configuration["Prompts:EmailReplyGenerator"]);
                     await GetAssistantReply($"{emailOptimizerPrompt}{emailToOptimize.Email}");
                     StateHasChanged();
                     await JSHelper.CallJavaScriptFunctionAsync(JS, "scrollToBottom");

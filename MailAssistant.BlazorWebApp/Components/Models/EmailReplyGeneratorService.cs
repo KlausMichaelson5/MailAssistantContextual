@@ -3,7 +3,7 @@
     /// <summary>
     /// Provides information about an email.Used to pass email between home page and to chatbot page.
     /// </summary>
-    internal class EmailOptimizerService
+    internal class EmailReplyGeneratorService
     {
         /// <summary>
         /// Gets or sets the email.

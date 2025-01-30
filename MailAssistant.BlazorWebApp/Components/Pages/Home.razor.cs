@@ -25,6 +25,7 @@ namespace MailAssistant.BlazorWebApp.Components.Pages
         {
             // Placeholder for AI reply generation logic
             // This could be integrated with an AI service to generate a reply
+            emailToGenerateReply.Email = $"Subject:{selectedEmail.Subject} Body:{selectedEmail.Body}";
             Navigation.NavigateTo("/Chatbot");
 
         }

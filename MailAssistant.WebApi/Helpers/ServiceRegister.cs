@@ -22,16 +22,13 @@ namespace MailAssistant.WebApi.Helpers
         internal static void ConfigureServices(IServiceCollection services)
         {
             services.AddTransient<IChatDataService, ChatDataService>();
-            services.AddTransient<IEmailDataService, EmailDataService>();
 
             services.AddTransient<IKernelFactory, AzureOpenAIKernel>();
             services.AddTransient<ISettingsFactory, OpenAIFunctionChoiceRequired>();
-
             services.AddTransient<IAzureTextEmbeddingService, AzureTextEmbeddingService>();
             services.AddTransient<IAzureVectorStoreService, AzureVectorStoreService>();            
-
             services.AddSingleton<IChatService, AzureContextualEmailReplyGenAssistant>();
-            services.AddSingleton<IEmailService, AzureEmailAssistant>();
+
 
             services.Configure<ApiBehaviorOptions>(options
                   => options.SuppressModelStateInvalidFilter = true);

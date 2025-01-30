@@ -29,12 +29,10 @@ namespace MailAssistant.BlazorWebApp.Helpers
 			services.AddSingleton<ApiPaths>(apiPaths);
 
 			services.AddTransient<IChatUIService, ChatUIService>();
-            services.AddTransient<IEmailUIService, EmailUIService>();
 
             services.AddSingleton<IEmailDisplayService, EmailDisplayService>();
-
             services.AddSingleton<EmailInfoService>();
-            services.AddSingleton<EmailOptimizerService>();
+            services.AddSingleton<EmailReplyGeneratorService>();
 
             services.AddLogging(configure => configure.AddConsole());
 

@@ -1,0 +1,2 @@
+﻿The below is email subject and body the use recieved.
+Analyze it and help user to generate a reply to it.
