@@ -2,6 +2,8 @@
 using MailAssistant.BlazorWebApp.Interfaces;
 using MailAssistant.BlazorWebApp.Models;
 using MailAssistant.BlazorWebApp.Services;
+using MailAssistant.Services.Interfaces;
+using Microsoft.AspNetCore.Components;
 
 namespace MailAssistant.BlazorWebApp.Helpers
 {
@@ -28,6 +30,8 @@ namespace MailAssistant.BlazorWebApp.Helpers
 
 			services.AddTransient<IChatUIService, ChatUIService>();
             services.AddTransient<IEmailUIService, EmailUIService>();
+
+            services.AddSingleton<IEmailDisplayService, EmailDisplayService>();
 
             services.AddSingleton<EmailInfoService>();
             services.AddSingleton<EmailOptimizerService>();
