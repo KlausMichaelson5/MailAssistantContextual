@@ -1,8 +1,9 @@
 ﻿using MailAssistant.AzureAISearch.Interfaces;
 using MailAssistant.AzureAISearch.Services;
-using MailAssistant.Contracts.Interfaces;
+using MailAssistant.Services.Helpers;
 using MailAssistant.Services.Interfaces;
 using MailAssistant.Services.Services;
+using MailAssistant.Services.Services.OpenAIHelper;
 using MailAssistant.WebApi.Interfaces;
 using MailAssistant.WebApi.Services;
 using Microsoft.AspNetCore.Mvc;
@@ -23,10 +24,12 @@ namespace MailAssistant.WebApi.Helpers
         {
             services.AddTransient<IChatDataService, ChatDataService>();
 
-            services.AddTransient<IKernelFactory, AzureOpenAIKernel>();
-            services.AddTransient<ISettingsFactory, OpenAIFunctionChoiceRequired>();
+            services.AddKeyedTransient<IKernelFactory, AzureOpenAIKernel>("Base");
             services.AddTransient<IAzureTextEmbeddingService, AzureTextEmbeddingService>();
-            services.AddTransient<IAzureVectorStoreService, AzureVectorStoreService>();            
+            services.AddTransient<IAzureVectorStoreService, AzureVectorStoreService>();
+            services.AddSingleton<WebSearchPlugin>();
+            
+            services.AddKeyedTransient<IKernelFactory, AzureOpenAIEmailReplyAssistantKernel>("EmailReplyGen");
             services.AddSingleton<IChatService, AzureContextualEmailReplyGenAssistant>();
 
 

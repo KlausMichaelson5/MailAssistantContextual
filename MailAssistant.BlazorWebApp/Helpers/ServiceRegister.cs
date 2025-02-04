@@ -2,8 +2,6 @@
 using MailAssistant.BlazorWebApp.Interfaces;
 using MailAssistant.BlazorWebApp.Models;
 using MailAssistant.BlazorWebApp.Services;
-using MailAssistant.Services.Interfaces;
-using Microsoft.AspNetCore.Components;
 
 namespace MailAssistant.BlazorWebApp.Helpers
 {
@@ -23,10 +21,6 @@ namespace MailAssistant.BlazorWebApp.Helpers
                     .AddInteractiveServerComponents();
 
             services.AddTransient(sp => new HttpClient());
-
-            IConfiguration Configuration = ConfigurationHelper.Configuration;
-            var apiPaths = Configuration.GetSection("ApiPaths").Get<ApiPaths>();
-			services.AddSingleton<ApiPaths>(apiPaths);
 
 			services.AddTransient<IChatUIService, ChatUIService>();
 

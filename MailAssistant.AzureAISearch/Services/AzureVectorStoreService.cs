@@ -2,21 +2,27 @@
 using Azure.Identity;
 using Azure.Search.Documents.Indexes;
 using Azure.Security.KeyVault.Secrets;
-using MailAssistant.AzureAISearch.Helpers;
 using MailAssistant.AzureAISearch.Interfaces;
-using Microsoft.Extensions.VectorData;
+using MailAssistant.AzureAISearch.Model.AppSettingsModels;
+using Microsoft.Extensions.Options;
 using Microsoft.SemanticKernel.Connectors.AzureAISearch;
 
 namespace MailAssistant.AzureAISearch.Services
 {
     public class AzureVectorStoreService : IAzureVectorStoreService
     {
+
+        private readonly AppSettings _appSettings;
+        public AzureVectorStoreService(IOptions<AppSettings> appSettings)
+        {
+            _appSettings = appSettings.Value;
+
+        }
         public  AzureAISearchVectorStore GetAzureAISearchVectorStore()
         {
-            var configuration = ConfigurationHelper.Configuration;
-            var endpoint = configuration["AzureAISearch:Endpoint"];
+            var endpoint = _appSettings.AzureAISearch.Endpoint;
 
-            var client = new SecretClient(new Uri(configuration["AzureKeyVault:BaseUrl"]), new DefaultAzureCredential());
+            var client = new SecretClient(new Uri(_appSettings.AzureKeyVault.BaseUrl), new DefaultAzureCredential());
             KeyVaultSecret retrievedSecret = client.GetSecret("AzureAIsearch--ApiKey");
             var apikey = retrievedSecret.Value;
 

@@ -21,11 +21,10 @@ namespace MailAssistant.BlazorWebApp.Components.Pages
             {
                 if (!string.IsNullOrEmpty(emailToOptimize.Email))
                 {
-                    var configuration = ConfigurationHelper.Configuration;
                     messages.Add(new Message { Text = emailToOptimize.Email, MessageType = MessageType.User });
                     StateHasChanged();
                     await JSHelper.CallJavaScriptFunctionAsync(JS, "scrollToBottom");
-                    var emailOptimizerPrompt = File.ReadAllText(configuration["Prompts:EmailReplyGenerator"]);
+                    var emailOptimizerPrompt = File.ReadAllText(appSettings.Value.Prompts.EmailReplyGenerator);
                     await GetAssistantReply($"{emailOptimizerPrompt}{emailToOptimize.Email}");
                     StateHasChanged();
                     await JSHelper.CallJavaScriptFunctionAsync(JS, "scrollToBottom");

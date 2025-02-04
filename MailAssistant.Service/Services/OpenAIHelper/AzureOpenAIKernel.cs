@@ -1,29 +1,35 @@
 ﻿using Azure.Identity;
 using Azure.Security.KeyVault.Secrets;
-using MailAssistant.Contracts.Interfaces;
-using MailAssistant.Services.Helpers;
+using MailAssistant.Services.AppSettingsModels;
+using MailAssistant.Services.Interfaces;
+using Microsoft.Extensions.Options;
 using Microsoft.SemanticKernel;
-using Kernel = Microsoft.SemanticKernel.Kernel;
+
 
 namespace MailAssistant.Services.Services
 {
-	/// <summary>
-	/// Represents a factory for creating Azure OpenAI kernels that implements IKernelFactory.
-	/// </summary>
-	public class AzureOpenAIKernel : IKernelFactory
+    /// <summary>
+    /// Represents a factory for creating Azure OpenAI kernels that implements IKernelFactory.
+    /// </summary>
+    public class AzureOpenAIKernel : IKernelFactory
     {
-		/// <summary>
-		/// Creates a new kernel instance configured for Azure OpenAI.
-		/// </summary>
-		/// <returns>A new instance of the <see cref="Kernel"/> class.</returns>
-		public Kernel CreateKernel()
+        private readonly AppSettings _appSettings;
+
+        public AzureOpenAIKernel(IOptions<AppSettings> appSettings)
         {
-            var configuration = ConfigurationHelper.Configuration;
+            _appSettings = appSettings.Value;
 
-            var model = configuration["AzureOpenAI:Model"];
-            var endpoint = configuration["AzureOpenAI:Endpoint"];
+        }
+        /// <summary>
+        /// Creates a new _emailReplyAssistantKernel instance configured for Azure OpenAI.
+        /// </summary>
+        /// <returns>A new instance of the <see cref="Kernel"/> class.</returns>
+        public Kernel GetKernel()
+        {
+            var model = _appSettings.AzureOpenAI.Model;
+            var endpoint =_appSettings.AzureOpenAI.Endpoint;
 
-            var client = new SecretClient(new Uri(configuration["AzureKeyVault:BaseUrl"]), new DefaultAzureCredential());
+            var client = new SecretClient(new Uri(_appSettings.AzureKeyVault.BaseUrl), new DefaultAzureCredential());
             KeyVaultSecret retrievedSecret = client.GetSecret("AzureOpenAI--ApiKey");
             var apikey = retrievedSecret.Value;
 
@@ -34,5 +40,6 @@ namespace MailAssistant.Services.Services
             var kernel = builder.Build();
             return kernel;
         }
+
     }
 }

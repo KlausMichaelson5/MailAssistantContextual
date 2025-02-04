@@ -3,11 +3,13 @@ using MailAssistant.BlazorWebApp.Helpers;
 
 namespace MailAssistant.BlazorWebApp
 {
-	public class Program
+    public class Program
     {
         public static void Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
+
+            builder.Services.Configure<Models.AppSettings>(builder.Configuration);
 
             // Add services to the container.
             ServiceRegistrar.ConfigureServices(builder.Services);

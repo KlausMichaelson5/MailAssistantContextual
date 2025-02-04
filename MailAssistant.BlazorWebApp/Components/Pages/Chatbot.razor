@@ -2,12 +2,15 @@
 @rendermode InteractiveServer
 @using MailAssistant.BlazorWebApp.Components.Models
 @using MailAssistant.BlazorWebApp.Interfaces
+@using MailAssistant.BlazorWebApp.Models
+@using Microsoft.Extensions.Options
 @using Microsoft.JSInterop
 @inject IChatUIService chatService
 @inject IJSRuntime JS
 @inject NavigationManager Navigation
 @inject EmailInfoService emailToReview
 @inject EmailReplyGeneratorService emailToOptimize
+@inject IOptions<AppSettings> appSettings
 
 
 <title>Chatbot</title>

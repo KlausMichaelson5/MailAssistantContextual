@@ -3,7 +3,7 @@
 	/// <summary>
 	/// Represents the API paths for the application.
 	/// </summary>
-	internal class ApiPaths
+	public class ApiPaths
     {
 		/// <summary>
 		/// Gets or sets the Chat API endpoint.
