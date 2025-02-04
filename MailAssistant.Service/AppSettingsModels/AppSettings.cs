@@ -7,5 +7,6 @@
         public AzureOpenAITextEmbedding AzureOpenAITextEmbedding { get; set; }
         public AzureAISearch AzureAISearch { get; set; }
         public SystemChatMessages SystemChatMessages { get; set; }
+        public Outlook Outlook { get; set; }
     }
 }

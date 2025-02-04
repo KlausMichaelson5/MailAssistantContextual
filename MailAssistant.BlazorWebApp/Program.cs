@@ -1,5 +1,7 @@
 using MailAssistant.BlazorWebApp.Components;
 using MailAssistant.BlazorWebApp.Helpers;
+using MailAssistant.Services.Interfaces;
+using MailAssistant.Services.Services.OutlookServices;
 
 namespace MailAssistant.BlazorWebApp
 {

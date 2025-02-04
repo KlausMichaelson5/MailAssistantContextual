@@ -1,7 +1,7 @@
-﻿using Microsoft.Extensions.VectorData;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
+using Microsoft.Extensions.VectorData;
 
-namespace MailAssistant.BlazorWebApp.Components.Models
+namespace MailAssistant.Helpers.Models
 {
     public class Email
     {

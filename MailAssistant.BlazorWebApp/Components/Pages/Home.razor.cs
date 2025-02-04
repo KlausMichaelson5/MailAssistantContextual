@@ -12,9 +12,9 @@ namespace MailAssistant.BlazorWebApp.Components.Pages
         private List<Email> emails;
         private Email selectedEmail;
 
-        protected override void OnInitialized()
+        protected async override Task OnInitializedAsync()
         {
-            emails = EmailService.GetEmails();
+            emails =await EmailService.GetEmails();
         }
 
         private void SelectEmail(Email email)

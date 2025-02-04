@@ -9,8 +9,6 @@ using Microsoft.SemanticKernel.ChatCompletion;
 using Microsoft.SemanticKernel.Connectors.OpenAI;
 
 
-
-
 namespace MailAssistant.Services.Services
 {
     /// <summary>

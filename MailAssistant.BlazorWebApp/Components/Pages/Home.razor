@@ -22,8 +22,10 @@
             @if (selectedEmail != null)
             {
                 <div>
-                    <h3>@selectedEmail.Subject</h3>
-                    <p>@selectedEmail.Body</p>
+                    <h4>
+                        <pre style="white-space: pre-wrap; word-wrap: break-word; overflow-wrap: break-word;">@selectedEmail.Subject</pre>
+                    </h4>
+                    <pre style="white-space: pre-wrap; word-wrap: break-word; overflow-wrap: break-word;">@selectedEmail.Body</pre>
                     <button class="btn btn-primary" @onclick="GenerateAIReply">Generate AI Reply</button>
                 </div>
             }

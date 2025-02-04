@@ -4,6 +4,7 @@ using MailAssistant.Services.Helpers;
 using MailAssistant.Services.Interfaces;
 using MailAssistant.Services.Services;
 using MailAssistant.Services.Services.OpenAIHelper;
+using MailAssistant.Services.Services.OutlookServices;
 using MailAssistant.WebApi.Interfaces;
 using MailAssistant.WebApi.Services;
 using Microsoft.AspNetCore.Mvc;
@@ -31,6 +32,7 @@ namespace MailAssistant.WebApi.Helpers
             
             services.AddKeyedTransient<IKernelFactory, AzureOpenAIEmailReplyAssistantKernel>("EmailReplyGen");
             services.AddSingleton<IChatService, AzureContextualEmailReplyGenAssistant>();
+            services.AddSingleton<IOutlookService, OutlookService>();
 
 
             services.Configure<ApiBehaviorOptions>(options

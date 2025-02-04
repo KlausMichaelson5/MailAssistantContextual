@@ -1,18 +1,27 @@
 ﻿using MailAssistant.BlazorWebApp.Components.Models;
 using MailAssistant.BlazorWebApp.Interfaces;
+using Microsoft.Extensions.Options;
 
 namespace MailAssistant.BlazorWebApp.Services
 {
     public class EmailDisplayService : IEmailDisplayService
     {
-        public List<Email> GetEmails()
+
+        private readonly HttpClient _httpClient;
+        private readonly Models.AppSettings _appSettings;
+        private readonly ILogger<EmailDisplayService> _logger;
+
+        public EmailDisplayService(HttpClient httpClient, IOptions<Models.AppSettings> appSettings, ILogger<EmailDisplayService> logger)
         {
-            // Sample emails
-            return new List<Email>
-            {
-                new Email { Subject = "Welcome!", Body = "Welcome to our service." },
-                new Email { Subject = "Meeting Reminder", Body = "Don't forget about the meeting tomorrow." }
-            };
+            _httpClient = httpClient;
+            _appSettings = appSettings.Value;
+            _logger = logger;
+        }
+
+        public async Task<List<Email>> GetEmails()
+        {
+            var response =_httpClient.GetFromJsonAsync<List<Email>>(_appSettings.ApiPaths.EmailApi).Result;
+            return response;
         }
     }
 }

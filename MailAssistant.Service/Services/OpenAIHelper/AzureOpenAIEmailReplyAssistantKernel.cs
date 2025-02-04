@@ -24,7 +24,7 @@ namespace MailAssistant.Services.Services.OpenAIHelper
 
         public AzureOpenAIEmailReplyAssistantKernel([FromKeyedServices("Base")] IKernelFactory kernelFactory, IAzureTextEmbeddingService azureTextEmbeddingGenerationService, IAzureVectorStoreService vectorStoreService, WebSearchPlugin webSearchPlugin, ILogger<AzureOpenAIEmailReplyAssistantKernel> logger)
         {
-            kernel = kernelFactory.GetKernel();
+             kernel = kernelFactory.GetKernel();
             _azureTextEmbeddingGenerationService = azureTextEmbeddingGenerationService;
             _vectorStoreService = vectorStoreService;
             _webSearchPlugin = webSearchPlugin;
