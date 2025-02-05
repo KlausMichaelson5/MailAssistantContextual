@@ -1,5 +1,6 @@
 ﻿using MailAssistant.Helpers.Models;
 using MailAssistant.Services.Interfaces;
+using MailAssistant.WebApi.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
 namespace MailAssistant.WebApi.Controllers
@@ -8,50 +9,63 @@ namespace MailAssistant.WebApi.Controllers
     [Route("api/[controller]")]
     public class OutlookController : ControllerBase
     {
-        private readonly IOutlookService _outlookService;
+        private readonly IOutlookDataService _outlookDataService;
+        private readonly ILogger<OutlookController> _logger;
 
-        public OutlookController(IOutlookService outlookService)
+        public OutlookController(IOutlookDataService outlookDataService, ILogger<OutlookController> logger)
         {
-            _outlookService = outlookService;
+            _outlookDataService = outlookDataService;
+            _logger = logger;
         }
 
-        [HttpGet("emails")]
+        [HttpGet("Emails")]
         public async Task<IActionResult> GetMailsFromOutlook(int count = int.MaxValue)
         {
-            var emails = await _outlookService.GetMailsFromOutlook(count);
-            return Ok(emails);
+            try
+            {
+                var emails = await _outlookDataService.GetMailsFromOutlook(count);
+                return Ok(emails);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError($"Error fetching emails: {ex.Message}");
+                return StatusCode(500, "Internal server error: Please try again later");
+            }
         }
 
-        [HttpPost("generate-embeddings")]
+        [HttpPost("Generate-Embeddings")]
         public async Task<IActionResult> GenerateEmbeddingsAndUpsertAsync(int count = int.MaxValue)
         {
-            await _outlookService.GenerateEmbeddingsAndUpsertAsync(count);
-            return Ok();
+            try
+            {
+                await _outlookDataService.GenerateEmbeddingsAndUpsertAsync(count);
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError($"Error generating embeddings: {ex.Message}");
+                return StatusCode(500, "Internal server error: Please try again later");
+            }
         }
 
-        [HttpGet("search-embeddings")]
+        [HttpGet("Search-Embeddings")]
         public async Task<ActionResult<List<Email>>> SearchEmails(string query, int top = 1, int skip = 0)
         {
             if (string.IsNullOrEmpty(query))
             {
                 return BadRequest("Query cannot be empty.");
             }
-            var emails = await _outlookService.GenerateEmbeddingsAndSearchAsync(query, top, skip);
-            return Ok(emails);
-        }
 
-        [HttpPost("add-email")]
-        public async Task<IActionResult> AddEmailAsync([FromBody] Email email)
-        {
-            await _outlookService.AddEmailAsync(email);
-            return Ok();
-        }
-
-        [HttpPost("reply-email")]
-        public async Task<IActionResult> ReplyToEmailAsync([FromBody] Email email)
-        {
-            await _outlookService.ReplyToEmailAsync(email);
-            return Ok();
+            try
+            {
+                var emails = await _outlookDataService.GenerateEmbeddingsAndSearchAsync(query, top, skip);
+                return Ok(emails);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError($"Error searching emails: {ex.Message}");
+                return StatusCode(500, "Internal server error: Please try again later");
+            }
         }
     }
 }

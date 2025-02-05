@@ -1,12 +1,25 @@
 ﻿@page "/"
 @using MailAssistant.BlazorWebApp.Components.Models
+@using MailAssistant.BlazorWebApp.Interfaces
 @rendermode InteractiveServer
 @inject NavigationManager Navigation
 @inject EmailReplyGeneratorService emailToGenerateReply
+@inject IEmailDisplayService emailDisplayService
 
 <title>Home</title>
 <div class="container min-vh-100 mt-3">
+    @if (isLoading)
+    {
     <div class="row">
+        <div class="d-flex" >
+            <img src="Images/NormalPageLoading.png" alt="Loading..." />
+        </div>
+     </div>
+    }
+
+    else
+    {
+      <div class="row">
         <div class="col-md-4">
             <ul class="list-group">
                 <li class="list-group-item">Inbox</li>
@@ -38,4 +51,5 @@
             }
         </div>
     </div>
+    } 
 </div>

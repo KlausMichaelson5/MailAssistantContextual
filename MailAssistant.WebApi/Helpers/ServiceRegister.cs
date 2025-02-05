@@ -24,6 +24,7 @@ namespace MailAssistant.WebApi.Helpers
         internal static void ConfigureServices(IServiceCollection services)
         {
             services.AddTransient<IChatDataService, ChatDataService>();
+            services.AddTransient<IOutlookDataService, OutlookDataService>();
 
             services.AddKeyedTransient<IKernelFactory, AzureOpenAIKernel>("Base");
             services.AddTransient<IAzureTextEmbeddingService, AzureTextEmbeddingService>();

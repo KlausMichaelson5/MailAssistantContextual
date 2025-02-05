@@ -20,7 +20,26 @@ namespace MailAssistant.BlazorWebApp.Services
 
         public async Task<List<Email>> GetEmails()
         {
-            var response =_httpClient.GetFromJsonAsync<List<Email>>(_appSettings.ApiPaths.EmailApi).Result;
+            List<Email> response = [];
+            try
+            {
+                var httpResponse = await _httpClient.GetAsync(_appSettings.ApiPaths.EmailApi);
+                if (!httpResponse.IsSuccessStatusCode)
+                {
+                    _logger.LogError($"Internal error status code: {httpResponse.StatusCode} response: {httpResponse}");
+                    response=[];
+                }
+                else
+                {
+                    var emails = await httpResponse.Content.ReadFromJsonAsync<List<Email>>();
+                    if(emails != null ) { response=emails; }
+                }
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex.Message);
+                throw new Exception("Internal server error. Please try again later");
+            }
             return response;
         }
     }

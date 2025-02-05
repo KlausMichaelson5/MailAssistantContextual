@@ -1,20 +1,20 @@
 using MailAssistant.BlazorWebApp.Components.Models;
-using MailAssistant.BlazorWebApp.Interfaces;
-using Microsoft.AspNetCore.Components;
 
 namespace MailAssistant.BlazorWebApp.Components.Pages
 {
-    public partial class Home : ComponentBase
+    public partial class Home
     {
-        [Inject]
-        public IEmailDisplayService EmailService { get; set; }
-
-        private List<Email> emails;
+        private bool isLoading = true;
+        private List<Email> emails = [];
         private Email selectedEmail;
 
         protected async override Task OnInitializedAsync()
         {
-            emails =await EmailService.GetEmails();
+            isLoading = true;
+            StateHasChanged();
+            emails =await emailDisplayService.GetEmails();
+            isLoading = false;
+            StateHasChanged();
         }
 
         private void SelectEmail(Email email)
