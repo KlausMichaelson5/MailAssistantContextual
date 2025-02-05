@@ -4,14 +4,14 @@ using Microsoft.Extensions.Options;
 
 namespace MailAssistant.BlazorWebApp.Services
 {
-    public class EmailDisplayService : IEmailDisplayService
+    public class OutlookUIService : IOutlookUIService
     {
 
         private readonly HttpClient _httpClient;
         private readonly Models.AppSettings _appSettings;
-        private readonly ILogger<EmailDisplayService> _logger;
+        private readonly ILogger<OutlookUIService> _logger;
 
-        public EmailDisplayService(HttpClient httpClient, IOptions<Models.AppSettings> appSettings, ILogger<EmailDisplayService> logger)
+        public OutlookUIService(HttpClient httpClient, IOptions<Models.AppSettings> appSettings, ILogger<OutlookUIService> logger)
         {
             _httpClient = httpClient;
             _appSettings = appSettings.Value;

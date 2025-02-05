@@ -2,7 +2,7 @@
 
 namespace MailAssistant.BlazorWebApp.Interfaces
 {
-    public interface IEmailDisplayService
+    public interface IOutlookUIService
     {
         Task<List<Email>> GetEmails();
     }

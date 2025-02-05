@@ -22,5 +22,7 @@
         /// </summary>
         /// <value>The email subject.</value>
         internal string EmailSubject { get; set; } =string.Empty;
+
+        internal bool EmailReplyGenConfirmed {  get; set; }
 	}
 }

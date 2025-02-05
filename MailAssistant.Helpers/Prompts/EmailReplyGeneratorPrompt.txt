@@ -1,2 +1,3 @@
-﻿The below is email subject and body the user recieved.
-Analyze it and help user to generate a reply to it.
+﻿The below is email subject and body I have recieved.
+Can you help me generate reply to it.
+if it is needed for something to be added in email first check  whether it is available  in AzureAISearchPlugin(textSearch plugin)then use it to generate response.If not available there use bingplugin to search in internet and add it in email as needed and present the email.

@@ -8,13 +8,16 @@ namespace MailAssistant.BlazorWebApp.Components.Pages
         private List<Email> emails = [];
         private Email selectedEmail;
 
-        protected async override Task OnInitializedAsync()
+        protected async override Task OnAfterRenderAsync(bool firstRender)
         {
-            isLoading = true;
-            StateHasChanged();
-            emails =await emailDisplayService.GetEmails();
-            isLoading = false;
-            StateHasChanged();
+            if (firstRender)
+            {
+                isLoading = true;
+                StateHasChanged();
+                emails = await emailDisplayService.GetEmails();
+                isLoading = false;
+                StateHasChanged();
+            }
         }
 
         private void SelectEmail(Email email)
@@ -24,9 +27,10 @@ namespace MailAssistant.BlazorWebApp.Components.Pages
 
         private void GenerateAIReply()
         {
-            // Placeholder for AI reply generation logic
-            // This could be integrated with an AI service to generate a reply
-            emailToGenerateReply.Email = $"Subject:{selectedEmail.Subject} Body:{selectedEmail.Body}";
+            emailInfoService.Email = selectedEmail.Body;
+            emailInfoService.EmailRecipient = selectedEmail.From;
+            emailInfoService.EmailSubject = selectedEmail.Subject;
+            emailInfoService.EmailReplyGenConfirmed = true;
             Navigation.NavigateTo("/Chatbot");
 
         }

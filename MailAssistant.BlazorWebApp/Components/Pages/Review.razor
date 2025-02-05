@@ -2,7 +2,8 @@
 @rendermode InteractiveServer
 @using MailAssistant.BlazorWebApp.Components.Models
 @inject IJSRuntime JS
-@inject EmailInfoService emailToReview
+@inject EmailInfoService emailInfoService
+@inject NavigationManager Navigation
 
 
 <title>Review</title>
@@ -10,7 +11,7 @@
 
 <div class="form-group d-flex flex-column min-vh-100">
     <label for="copiedData">Mail:</label>
-    <textarea class="form-control" id="copiedData" rows="18" @bind="emailToReview.Email" @bind:event="oninput"></textarea>
+    <textarea class="form-control" id="copiedData" rows="18" @bind="emailInfoService.Email" @bind:event="oninput"></textarea>
     <button class="btn btn-primary mt-3" @onclick="ShareMessage">Share</button>
 </div>
 

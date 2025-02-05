@@ -23,10 +23,9 @@ namespace MailAssistant.BlazorWebApp.Helpers
             services.AddTransient(sp => new HttpClient());
 
 			services.AddTransient<IChatUIService, ChatUIService>();
+            services.AddTransient<IOutlookUIService, OutlookUIService>();
 
-            services.AddSingleton<IEmailDisplayService, EmailDisplayService>();
             services.AddSingleton<EmailInfoService>();
-            services.AddSingleton<EmailReplyGeneratorService>();
 
             services.AddLogging(configure => configure.AddConsole());
 

@@ -19,16 +19,16 @@ namespace MailAssistant.BlazorWebApp.Components.Pages
         {
             if (firstRender)
             {
-                if (!string.IsNullOrEmpty(emailToOptimize.Email))
+                if (emailInfoService!=null && emailInfoService.EmailReplyGenConfirmed==true)
                 {
-                    messages.Add(new Message { Text = emailToOptimize.Email, MessageType = MessageType.User });
+                    messages.Add(new Message { Text = emailInfoService.Email, MessageType = MessageType.User });
                     StateHasChanged();
                     await JSHelper.CallJavaScriptFunctionAsync(JS, "scrollToBottom");
-                    var emailOptimizerPrompt = File.ReadAllText(appSettings.Value.Prompts.EmailReplyGenerator);
-                    await GetAssistantReply($"{emailOptimizerPrompt}{emailToOptimize.Email}");
+                    var emailReplyGenPrompt = File.ReadAllText(appSettings.Value.Prompts.EmailReplyGenerator);
+                    await GetAssistantReply($"{emailReplyGenPrompt}{emailInfoService.Email}");
                     StateHasChanged();
                     await JSHelper.CallJavaScriptFunctionAsync(JS, "scrollToBottom");
-                    emailToOptimize.Email = string.Empty;
+                    emailInfoService.EmailReplyGenConfirmed = false;
                 }
             }
         }
@@ -112,7 +112,7 @@ namespace MailAssistant.BlazorWebApp.Components.Pages
         /// <param name="message">The message to review.</param>
         private void ReviewMessage(Message message)
 		{
-            emailToReview.Email = message.Text;
+            emailInfoService.Email = message.Text;
             Navigation.NavigateTo("/review");
 		}
 
@@ -122,8 +122,13 @@ namespace MailAssistant.BlazorWebApp.Components.Pages
         /// <param name="message">The message to share.</param>
         private async void ShareMessage(Message message)
 		{
-            await JSHelper.CallJavaScriptFunctionAsync(JS, "sendEmail", message.Text);
-		}
+            emailInfoService.Email = message.Text;
+            await JSHelper.CallJavaScriptFunctionAsync(JS, "sendEmail", emailInfoService.Email, emailInfoService.EmailRecipient, emailInfoService.EmailSubject);
+
+            emailInfoService.Email = string.Empty;
+            emailInfoService.EmailRecipient = string.Empty;
+            emailInfoService.EmailSubject = string.Empty;
+        }
 
 		/// <summary>
 		/// Clears all messages and starts a new chat session.
