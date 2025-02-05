@@ -1,4 +1,4 @@
-﻿namespace MailAssistant.Services.AppSettingsModels
+﻿namespace MailAssistant.Services.Models.AppSettingsModels
 {
     public class AzureOpenAI
     {

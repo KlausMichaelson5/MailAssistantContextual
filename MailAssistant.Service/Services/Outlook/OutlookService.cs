@@ -1,7 +1,7 @@
 ﻿using MailAssistant.AzureAISearch.Interfaces;
 using MailAssistant.Helpers.Models;
-using MailAssistant.Services.AppSettingsModels;
 using MailAssistant.Services.Interfaces;
+using MailAssistant.Services.Models.AppSettingsModels;
 using Microsoft.Extensions.Options;
 using Microsoft.Extensions.VectorData;
 using Microsoft.Office.Interop.Outlook;

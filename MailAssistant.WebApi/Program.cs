@@ -9,8 +9,8 @@ namespace MailAssistant.WebApi
             var builder = WebApplication.CreateBuilder(args);
 
             // Add services to the container.
-            builder.Services.Configure<AzureAISearch.Model.AppSettingsModels.AppSettings>(builder.Configuration);
-            builder.Services.Configure<MailAssistant.Services.AppSettingsModels.AppSettings>(builder.Configuration);
+            builder.Services.Configure<AzureAISearch.Models.AppSettingsModels.AppSettings>(builder.Configuration);
+            builder.Services.Configure<MailAssistant.Services.Models.AppSettingsModels.AppSettings>(builder.Configuration);
             builder.Services.AddControllers();
             ServiceRegistrar.ConfigureServices(builder.Services);
 

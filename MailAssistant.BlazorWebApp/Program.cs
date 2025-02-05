@@ -1,5 +1,6 @@
 using MailAssistant.BlazorWebApp.Components;
 using MailAssistant.BlazorWebApp.Helpers;
+using MailAssistant.BlazorWebApp.Models;
 
 namespace MailAssistant.BlazorWebApp
 {
@@ -9,7 +10,7 @@ namespace MailAssistant.BlazorWebApp
         {
             var builder = WebApplication.CreateBuilder(args);
 
-            builder.Services.Configure<Models.AppSettings>(builder.Configuration);
+            builder.Services.Configure<AppSettings>(builder.Configuration);
 
             // Add services to the container.
             ServiceRegistrar.ConfigureServices(builder.Services);

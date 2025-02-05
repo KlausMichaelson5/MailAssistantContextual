@@ -1,7 +1,7 @@
 ﻿using Azure.Identity;
 using Azure.Security.KeyVault.Secrets;
-using MailAssistant.Services.AppSettingsModels;
 using MailAssistant.Services.Interfaces;
+using MailAssistant.Services.Models.AppSettingsModels;
 using Microsoft.Extensions.Options;
 using Microsoft.SemanticKernel;
 

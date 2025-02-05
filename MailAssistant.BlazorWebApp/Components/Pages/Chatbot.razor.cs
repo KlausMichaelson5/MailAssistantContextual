@@ -124,10 +124,6 @@ namespace MailAssistant.BlazorWebApp.Components.Pages
 		{
             emailInfoService.Email = message.Text;
             await JSHelper.CallJavaScriptFunctionAsync(JS, "sendEmail", emailInfoService.Email, emailInfoService.EmailRecipient, emailInfoService.EmailSubject);
-
-            emailInfoService.Email = string.Empty;
-            emailInfoService.EmailRecipient = string.Empty;
-            emailInfoService.EmailSubject = string.Empty;
         }
 
 		/// <summary>

@@ -1,12 +1,12 @@
 ﻿using Azure.Identity;
 using Azure.Security.KeyVault.Secrets;
 using MailAssistant.AzureAISearch.Interfaces;
-using MailAssistant.AzureAISearch.Model.AppSettingsModels;
+using MailAssistant.AzureAISearch.Models.AppSettingsModels;
 using Microsoft.Extensions.Options;
 using Microsoft.SemanticKernel.Connectors.AzureOpenAI;
 
 namespace MailAssistant.AzureAISearch.Services
-{  
+{
     public class AzureTextEmbeddingService : IAzureTextEmbeddingService
     {
         private readonly AppSettings _appSettings;

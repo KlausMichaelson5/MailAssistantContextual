@@ -1,4 +1,4 @@
-﻿namespace MailAssistant.AzureAISearch.Model.AppSettingsModels
+﻿namespace MailAssistant.AzureAISearch.Models.AppSettingsModels
 {
     public class AzureAISearch
     {

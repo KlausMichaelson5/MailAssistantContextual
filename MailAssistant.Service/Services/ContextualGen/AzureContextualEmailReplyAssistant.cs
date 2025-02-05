@@ -1,6 +1,6 @@
-﻿using MailAssistant.Services.AppSettingsModels;
-using MailAssistant.Services.Helpers;
+﻿using MailAssistant.Services.Helpers;
 using MailAssistant.Services.Interfaces;
+using MailAssistant.Services.Models.AppSettingsModels;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
