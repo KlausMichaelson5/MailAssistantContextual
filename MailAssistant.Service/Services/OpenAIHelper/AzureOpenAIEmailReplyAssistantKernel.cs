@@ -8,6 +8,8 @@ using MailAssistant.AzureAISearch.Interfaces;
 using MailAssistant.Services.Helpers;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.DependencyInjection;
+using MailAssistant.Services.Services.Outlook;
+using MailAssistant.Helpers.Models;
 
 namespace MailAssistant.Services.Services.OpenAIHelper
 {
@@ -51,13 +53,23 @@ namespace MailAssistant.Services.Services.OpenAIHelper
         {
             var textEmbeddingGenerationService = _azureTextEmbeddingGenerationService.GetAzureOpenAITextEmbeddingGenerationService();
             var vectorStore = _vectorStoreService.GetAzureAISearchVectorStore();
+
             var collection = vectorStore.GetCollection<string, SalesQARecords>("salesqaformailgen");
+            var collection2 = vectorStore.GetCollection<string, Email>("email");
+
             await collection.CreateCollectionIfNotExistsAsync();
-              #pragma warning disable SKEXP0001
+            await collection2.CreateCollectionIfNotExistsAsync();
+
+            #pragma warning disable SKEXP0001
             var textSearch = new VectorStoreTextSearch<SalesQARecords>(collection, textEmbeddingGenerationService);
+            var textSearch2 = new VectorStoreTextSearch<Email>(collection2, textEmbeddingGenerationService);
             #pragma warning restore SKEXP0001
+
             var searchPlugin = textSearch.CreateWithGetTextSearchResults("AzureAISearchPlugin");
             kernel.Plugins.Add(searchPlugin);
+
+            var testPlugin = new EmailVectorStorePlugin(textSearch2);
+            kernel.Plugins.AddFromObject(testPlugin, "EmailVectorStorePlugin");
         }
 
     }

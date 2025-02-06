@@ -29,7 +29,7 @@ namespace MailAssistant.Services.Services.OutlookServices
             PR_SMTP_ADDRESS = _appSettings.Outlook.PR_SMTP_ADDRESS;
 
             var vectorStore = _vectorStoreService.GetAzureAISearchVectorStore();
-            _collection = vectorStore.GetCollection<string, Email>("Email");
+            _collection = vectorStore.GetCollection<string, Email>("email");
 
             _outlookApp = new Application();
             var inboxFolder = _outlookApp.GetNamespace("MAPI").GetDefaultFolder(OlDefaultFolders.olFolderInbox); ;
