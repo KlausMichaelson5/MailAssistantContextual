@@ -2,7 +2,7 @@
 Can you help me generate reply to it.
 
 If additional information is needed for an email:
-	1.Check AzureAISearchPlugin (textSearch plugin) for the required information and use if found here.
-	2.If not found, check in get_all_emails kernel function and use if found here.
-	3.If still not found, use BingPlugin to search the internet.
+	1.Check AzureAISearchPlugin (textSearch plugin) for the required information and use that if found here.
+	2.If not found, check in EmailVectorStorePlugin (get_all_emails kernel function) and use that if found here.
+	3.If still not found, use BingPlugin to search the internet and use if needed.
 	4.Incorporate the found information into the email as needed.

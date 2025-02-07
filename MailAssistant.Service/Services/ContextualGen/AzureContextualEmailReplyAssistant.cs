@@ -72,7 +72,7 @@ namespace MailAssistant.Services.Services
             {
                 var chatCompletionResult = await chatCompletionService.GetChatMessageContentAsync(chatHistory, openAIPromptExecutionSettings, _emailReplyAssistantKernel);
                 assistantReply = $"{chatCompletionResult}";
-                chatHistory.AddAssistantMessage(assistantReply);
+                //chatHistory.AddAssistantMessage(assistantReply);
                 _logger.LogInformation("Got reply from assistant.");
 
             }

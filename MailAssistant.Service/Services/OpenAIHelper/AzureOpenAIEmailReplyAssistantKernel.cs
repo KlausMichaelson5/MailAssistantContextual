@@ -44,6 +44,7 @@ namespace MailAssistant.Services.Services.OpenAIHelper
             #pragma warning restore SKEXP0050
 
             AddTextSearchPluginForSalesQARecord().Wait();
+            AddEmailVectorStorePlugin().Wait();
             kernel.ImportPluginFromObject(_webSearchPlugin.GetAzureBingSearchPlugin(), "BingPlugin");
 
             return kernel;
@@ -54,22 +55,31 @@ namespace MailAssistant.Services.Services.OpenAIHelper
             var textEmbeddingGenerationService = _azureTextEmbeddingGenerationService.GetAzureOpenAITextEmbeddingGenerationService();
             var vectorStore = _vectorStoreService.GetAzureAISearchVectorStore();
 
-            var collection = vectorStore.GetCollection<string, SalesQARecords>("salesqaformailgen");
-            var collection2 = vectorStore.GetCollection<string, Email>("email");
-
-            await collection.CreateCollectionIfNotExistsAsync();
-            await collection2.CreateCollectionIfNotExistsAsync();
+            var salesQACollection = vectorStore.GetCollection<string, SalesQARecords>("salesqaformailgen");
+            await salesQACollection.CreateCollectionIfNotExistsAsync();
 
             #pragma warning disable SKEXP0001
-            var textSearch = new VectorStoreTextSearch<SalesQARecords>(collection, textEmbeddingGenerationService);
-            var textSearch2 = new VectorStoreTextSearch<Email>(collection2, textEmbeddingGenerationService);
+            var salesQATextSearch = new VectorStoreTextSearch<SalesQARecords>(salesQACollection, textEmbeddingGenerationService);
             #pragma warning restore SKEXP0001
 
-            var searchPlugin = textSearch.CreateWithGetTextSearchResults("AzureAISearchPlugin");
-            kernel.Plugins.Add(searchPlugin);
+            var salesQASearchPlugin = salesQATextSearch.CreateWithGetTextSearchResults("AzureAISearchPlugin");
+            kernel.Plugins.Add(salesQASearchPlugin);
+        }
 
-            var testPlugin = new EmailVectorStorePlugin(textSearch2);
-            kernel.Plugins.AddFromObject(testPlugin, "EmailVectorStorePlugin");
+        private async Task AddEmailVectorStorePlugin()
+        {
+            var textEmbeddingGenerationService = _azureTextEmbeddingGenerationService.GetAzureOpenAITextEmbeddingGenerationService();
+            var vectorStore = _vectorStoreService.GetAzureAISearchVectorStore();
+
+            var emailsCollection = vectorStore.GetCollection<string, Email>("email");
+            await emailsCollection.CreateCollectionIfNotExistsAsync();
+
+            #pragma warning disable SKEXP0001
+            var emailsTextSearch = new VectorStoreTextSearch<Email>(emailsCollection, textEmbeddingGenerationService);
+            #pragma warning restore SKEXP0001
+
+            var emailVectorStorePlugin = new EmailVectorStorePlugin(emailsTextSearch);
+            kernel.Plugins.AddFromObject(emailVectorStorePlugin, "EmailVectorStorePlugin");
         }
 
     }
