@@ -21,11 +21,11 @@ namespace MailAssistant.BlazorWebApp.Components.Pages
             {
                 if (emailInfoService!=null && emailInfoService.EmailReplyGenConfirmed==true)
                 {
-                    messages.Add(new Message { Text = emailInfoService.Email, MessageType = MessageType.User });
+                    messages.Add(new Message { Text = "Subject:"+emailInfoService.EmailSubject +"\n\n" + "Body:\n"+ emailInfoService.Email, MessageType = MessageType.User });
                     StateHasChanged();
                     await JSHelper.CallJavaScriptFunctionAsync(JS, "scrollToBottom");
                     var emailReplyGenPrompt = File.ReadAllText(appSettings.Value.Prompts.EmailReplyGenerator);
-                    await GetAssistantReply($"{emailReplyGenPrompt}{emailInfoService.Email}");
+                    await GetAssistantReply($"{emailReplyGenPrompt}{emailInfoService.EmailSubject}{emailInfoService.Email}");
                     StateHasChanged();
                     await JSHelper.CallJavaScriptFunctionAsync(JS, "scrollToBottom");
                     emailInfoService.EmailReplyGenConfirmed = false;
