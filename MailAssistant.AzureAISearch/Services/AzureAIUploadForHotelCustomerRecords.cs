@@ -1,5 +1,5 @@
 ﻿using MailAssistant.AzureAISearch.Interfaces;
-using MailAssistant.AzureAISearch.Models;
+using MailAssistant.Helpers.Models.Hotel;
 using Microsoft.SemanticKernel.Embeddings;
 
 namespace MailAssistant.AzureAISearch.Services

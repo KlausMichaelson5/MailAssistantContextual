@@ -18,4 +18,8 @@
     <PackageReference Include="Microsoft.SemanticKernel" Version="1.34.0" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\MailAssistant.Helpers\MailAssistant.Helpers.csproj" />
+  </ItemGroup>
+
 </Project>

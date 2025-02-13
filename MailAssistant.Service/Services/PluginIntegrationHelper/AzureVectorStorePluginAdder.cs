@@ -3,11 +3,10 @@ using MailAssistant.Services.Services.Outlook;
 using Microsoft.SemanticKernel.Data;
 using Microsoft.SemanticKernel;
 using MailAssistant.AzureAISearch.Interfaces;
-using MailAssistant.Helpers.Models.Hotel;
 using MailAssistant.Helpers.KernelFunction;
 using Microsoft.SemanticKernel.Connectors.AzureOpenAI;
 using Microsoft.SemanticKernel.Connectors.AzureAISearch;
-using MailAssistant.AzureAISearch.Models;
+using MailAssistant.Helpers.Models.Hotel;
 
 namespace MailAssistant.Services.Services.PluginIntegrationHelper
 {
