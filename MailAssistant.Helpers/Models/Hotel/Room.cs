@@ -2,9 +2,8 @@
 {
     public class Room
     {
-        public int RoomId { get; set; }
+        public string RoomId { get; set; }= Guid.NewGuid().ToString();
         public string RoomType { get; set; }
         public decimal PricePerNight { get; set; }
-        public bool IsAvailable { get; set; }
     }
 }

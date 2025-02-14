@@ -5,7 +5,7 @@ using Azure.Security.KeyVault.Secrets;
 using Microsoft.Extensions.Options;
 using MailAssistant.Services.Models.AppSettingsModels;
 
-namespace MailAssistant.Services.Helpers
+namespace MailAssistant.Services.Services.PluginIntegrationService
 {
     public class WebSearchPlugin
     {
@@ -15,8 +15,8 @@ namespace MailAssistant.Services.Helpers
         {
             _appSettings = appSettings.Value;
         }
-        #pragma warning disable SKEXP0050
-        public  WebSearchEnginePlugin GetAzureBingSearchPlugin()
+#pragma warning disable SKEXP0050
+        public WebSearchEnginePlugin GetAzureBingSearchPlugin()
         {
             var client = new SecretClient(new Uri(_appSettings.AzureKeyVault.BaseUrl), new DefaultAzureCredential());
             KeyVaultSecret retrievedSecret = client.GetSecret("AzureBingSearch--ApiKey");
@@ -25,6 +25,6 @@ namespace MailAssistant.Services.Helpers
             var plugin = new WebSearchEnginePlugin(bingConnector);
             return plugin;
         }
-        #pragma warning restore SKEXP0050
+#pragma warning restore SKEXP0050
     }
 }

@@ -8,8 +8,8 @@ namespace MailAssistant.Helpers.KernelFunction
     public class HotelVectorStorePlugin
     {
         #pragma warning disable SKEXP0001
-        private VectorStoreTextSearch<HotelCustomer> _hotelVectors;
-        public HotelVectorStorePlugin(VectorStoreTextSearch<HotelCustomer> hotelVectors)
+        private VectorStoreTextSearch<HotelCustomerVector> _hotelVectors;
+        public HotelVectorStorePlugin(VectorStoreTextSearch<HotelCustomerVector> hotelVectors)
         {
             _hotelVectors = hotelVectors;
         }
@@ -17,20 +17,19 @@ namespace MailAssistant.Helpers.KernelFunction
 
         [KernelFunction("get_matching_customer")]
         [Description("Gets matching customer if present from email id")]
-        public async Task<HotelCustomer> GetHotelCustomer(string email)
+        public async Task<HotelCustomerVector> GetHotelCustomer(string email)
         {
             //just a poc need to review and change below function
             var query = "get_matching_customer";
             KernelSearchResults<object> customerResult = await _hotelVectors.GetSearchResultsAsync(query);
-            HotelCustomer customer = new HotelCustomer();
-            await foreach (HotelCustomer result in customerResult.Results)
+            HotelCustomerVector customer = new HotelCustomerVector();
+            await foreach (HotelCustomerVector result in customerResult.Results)
             { 
                 if(result.Email==email) 
                 {
                     customer.Email = result.Email;
                     customer.FirstName = result.FirstName;
                     customer.LastName = result.LastName;
-                    customer.PhoneNumber = result.PhoneNumber;
                     customer.BookingHistory = result.BookingHistory;
                     customer.HotelCustomerId = result.HotelCustomerId;
                     customer.BookingHistoryEmbedding = result.BookingHistoryEmbedding;
