@@ -15,21 +15,19 @@ namespace MailAssistant.Services.Services.Outlook
             _emailVectors = emailVectors;
         }
 
-        [KernelFunction("get_all_emails")]
-        [Description("Gets all emails in the collection")]
-        public async Task<List<Email>> GetAllEmails()
+        [KernelFunction("search_emails_in_vector_store_collection")]
+        [Description("Search and retrive all emails that match the query from Azure AI search collection")]
+        public async Task<List<TextSearchResult>> GetAllEmails(string query)
         {
-            List<Email> emails = [];
-            var query = "get all emails";
-            KernelSearchResults<object> emailResults = await _emailVectors.GetSearchResultsAsync(query);
-            await foreach (Email result in emailResults.Results)
+            List<TextSearchResult> emails = [];
+            var emailResults = await _emailVectors.GetTextSearchResultsAsync(query);
+            await foreach (var result in emailResults.Results)
             {
-                Email email = new Email();
-                email.From = result.From;
-                email.To = result.To;
-                email.Subject = result.Subject;
-                email.Date = result.Date;
-                email.Body = result.Body;
+                var email = new TextSearchResult(value: result.Value)
+                {
+                    Name = result.Name,
+                    Link = result.Link
+                };
                 emails.Add(email);
             }
             return emails;

@@ -1,11 +1,14 @@
 ﻿using Microsoft.Extensions.VectorData;
+using Microsoft.SemanticKernel.Data;
 using System.ComponentModel.DataAnnotations;
 
 namespace MailAssistant.BlazorWebApp.Components.Models
 {
     public class Email
     {
+#pragma warning disable SKEXP0001
         [VectorStoreRecordKey]
+        [TextSearchResultLink]
         public string Id { get; set; }
 
         [VectorStoreRecordData(IsFilterable = true)]
@@ -20,9 +23,11 @@ namespace MailAssistant.BlazorWebApp.Components.Models
         public string Date { get; set; }
 
         [VectorStoreRecordData(IsFullTextSearchable = true)]
+        [TextSearchResultName]
         public string Subject { get; set; }
 
         [VectorStoreRecordData]
+        [TextSearchResultValue]
         public string Body { get; set; }
 
         [VectorStoreRecordVector(Dimensions: 1536)]
@@ -37,5 +42,6 @@ namespace MailAssistant.BlazorWebApp.Components.Models
                 + $"{separator}Date: {this.Date.ToString()}"
                 + $"{separator}Body: {this.Body}";
         }
+#pragma warning restore SKEXP0001
     }
 }
