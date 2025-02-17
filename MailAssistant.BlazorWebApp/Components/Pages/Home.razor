@@ -22,11 +22,12 @@
       <div class="row">
         <div class="col-md-4">
             <ul class="list-group">
-                <li class="list-group-item">Inbox</li>
+                    <li class="list-group-item active">Inbox</li>
                 @foreach (var email in emails)
                 {
-                    <li class="list-group-item" @onclick="() => SelectEmail(email)">
-                        @email.Subject
+                        <li class="list-group-item" @onclick="() => SelectEmail(email)">
+                        <p> @GetNameFromEmail(email.From)</p>
+                        <p class="small">@email.Subject</p>
                     </li>
                 }
             </ul>

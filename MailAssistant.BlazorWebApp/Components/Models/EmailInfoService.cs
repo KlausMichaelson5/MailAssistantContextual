@@ -9,7 +9,7 @@
         /// Gets or sets the email recipient.
         /// </summary>
         /// <value>The email recipient.</value>
-        internal string EmailRecipient { get; set; } = string.Empty;
+        internal string EmailSender { get; set; } = string.Empty;
 
         /// <summary>
         /// Gets or sets the email content.

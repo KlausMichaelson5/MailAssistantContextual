@@ -2,10 +2,10 @@
 using Microsoft.SemanticKernel.Plugins.Core;
 using Microsoft.SemanticKernel;
 using MailAssistant.Services.Interfaces;
-using MailAssistant.Services.Helpers;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.DependencyInjection;
 using MailAssistant.Services.Services.PluginIntegrationHelper;
+using MailAssistant.Services.Services.PluginIntegrationService;
 
 namespace MailAssistant.Services.Services.OpenAIHelper
 {
@@ -14,10 +14,10 @@ namespace MailAssistant.Services.Services.OpenAIHelper
         private readonly Kernel kernel;
         private readonly WebSearchPlugin _webSearchPlugin;
         private readonly ILogger<AzureOpenAIEmailReplyAssistantKernel> _logger;
-        private readonly AzureVectorStorePluginAdder _azureVectorStorePluginAdder;
+        private readonly AzureVectorStorePlugin _azureVectorStorePluginAdder;
 
 
-        public AzureOpenAIEmailReplyAssistantKernel([FromKeyedServices("Base")] IKernelFactory kernelFactory,AzureVectorStorePluginAdder azureVectorStorePluginAdder, WebSearchPlugin webSearchPlugin, ILogger<AzureOpenAIEmailReplyAssistantKernel> logger)
+        public AzureOpenAIEmailReplyAssistantKernel([FromKeyedServices("Base")] IKernelFactory kernelFactory,AzureVectorStorePlugin azureVectorStorePluginAdder, WebSearchPlugin webSearchPlugin, ILogger<AzureOpenAIEmailReplyAssistantKernel> logger)
         {
              kernel = kernelFactory.GetKernel();
             _azureVectorStorePluginAdder = azureVectorStorePluginAdder;
