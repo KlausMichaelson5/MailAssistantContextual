@@ -2,6 +2,7 @@
 using Azure.Security.KeyVault.Secrets;
 using MailAssistant.Services.Interfaces;
 using MailAssistant.Services.Models.AppSettingsModels;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Options;
 using Microsoft.SemanticKernel;
 
@@ -14,11 +15,12 @@ namespace MailAssistant.Services.Services
     public class AzureOpenAIKernel : IKernelFactory
     {
         private readonly AppSettings _appSettings;
+        private readonly IConfiguration _configuration;
 
-        public AzureOpenAIKernel(IOptions<AppSettings> appSettings)
+        public AzureOpenAIKernel(IOptions<AppSettings> appSettings, IConfiguration configuration)
         {
             _appSettings = appSettings.Value;
-
+            _configuration = configuration;
         }
         /// <summary>
         /// Creates a new _emailReplyAssistantKernel instance configured for Azure OpenAI.
@@ -29,9 +31,9 @@ namespace MailAssistant.Services.Services
             var model = _appSettings.AzureOpenAI.Model;
             var endpoint =_appSettings.AzureOpenAI.Endpoint;
 
-            var client = new SecretClient(new Uri(_appSettings.AzureKeyVault.BaseUrl), new DefaultAzureCredential());
-            KeyVaultSecret retrievedSecret = client.GetSecret("AzureOpenAI--ApiKey");
-            var apikey = retrievedSecret.Value;
+            //var client = new SecretClient(new Uri(_appSettings.AzureKeyVault.BaseUrl), new DefaultAzureCredential());
+            //KeyVaultSecret retrievedSecret = client.GetSecret("AzureOpenAI--ApiKey");
+            var apikey = _configuration["AzureOpenAiKey"];
 
             IKernelBuilder builder = Kernel.CreateBuilder();
 
