@@ -6,7 +6,9 @@ namespace MailAssistant.Helpers.Models
 {
     public class Email
     {
+#pragma warning disable SKEXP0001
         [VectorStoreRecordKey]
+        [TextSearchResultLink]
         public string Id { get; set; }
 
         [VectorStoreRecordData(IsFilterable = true)]
@@ -21,18 +23,25 @@ namespace MailAssistant.Helpers.Models
         public string Date { get; set; }
 
         [VectorStoreRecordData(IsFullTextSearchable = true)]
-        #pragma warning disable SKEXP0001
-        [TextSearchResultValue]
-        #pragma warning restore SKEXP0001
+        [TextSearchResultName]
         public string Subject { get; set; }
 
         [VectorStoreRecordData]
-        #pragma warning disable SKEXP0001
         [TextSearchResultValue]
-        #pragma warning restore SKEXP0001
         public string Body { get; set; }
 
         [VectorStoreRecordVector(Dimensions: 1536)]
         public ReadOnlyMemory<float>? Embedding { get; set; }
+
+        public override string ToString()
+        {
+            string separator = "```\n";
+            return $"{separator}From: {this.From}"
+                + $"{separator}To: {this.To}"
+                + $"{separator}Subject: {this.Subject}"
+                + $"{separator}Date: {this.Date.ToString()}"
+                + $"{separator}Body: {this.Body}";
+        }
+#pragma warning restore SKEXP0001
     }
 }
