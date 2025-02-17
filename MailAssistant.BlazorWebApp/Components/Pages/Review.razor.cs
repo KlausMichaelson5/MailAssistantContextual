@@ -12,7 +12,7 @@ namespace MailAssistant.BlazorWebApp.Components.Pages
         /// </summary>
         private async void ShareMessage()
         {
-            await JSHelper.CallJavaScriptFunctionAsync(JS, "sendEmail", emailInfoService.Email, emailInfoService.EmailRecipient, emailInfoService.EmailSubject);
+            await JSHelper.CallJavaScriptFunctionAsync(JS, "sendEmail", emailInfoService.Email, emailInfoService.EmailSender, emailInfoService.EmailSubject);
             emailInfoService.EmailReplyGenConfirmed= false;
         }
 	}

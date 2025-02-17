@@ -25,7 +25,7 @@ namespace MailAssistant.BlazorWebApp.Components.Pages
                     StateHasChanged();
                     await JSHelper.CallJavaScriptFunctionAsync(JS, "scrollToBottom");
                     var emailReplyGenPrompt = File.ReadAllText(appSettings.Value.Prompts.EmailReplyGenerator);
-                    await GetAssistantReply($"{emailReplyGenPrompt}{emailInfoService.EmailSubject}{emailInfoService.Email}");
+                    await GetAssistantReply($"{emailReplyGenPrompt}from:{emailInfoService.EmailSender}sub:{emailInfoService.EmailSubject}body:{emailInfoService.Email}");
                     StateHasChanged();
                     await JSHelper.CallJavaScriptFunctionAsync(JS, "scrollToBottom");
                     emailInfoService.EmailReplyGenConfirmed = false;
@@ -123,7 +123,7 @@ namespace MailAssistant.BlazorWebApp.Components.Pages
         private async void ShareMessage(Message message)
 		{
             emailInfoService.Email = message.Text;
-            await JSHelper.CallJavaScriptFunctionAsync(JS, "sendEmail", emailInfoService.Email, emailInfoService.EmailRecipient, emailInfoService.EmailSubject);
+            await JSHelper.CallJavaScriptFunctionAsync(JS, "sendEmail", emailInfoService.Email, emailInfoService.EmailSender, emailInfoService.EmailSubject);
         }
 
 		/// <summary>
