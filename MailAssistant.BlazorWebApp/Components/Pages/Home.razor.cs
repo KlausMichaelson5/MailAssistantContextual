@@ -30,6 +30,7 @@ namespace MailAssistant.BlazorWebApp.Components.Pages
         {
             emailInfoService.Email = selectedEmail.Body;
             emailInfoService.EmailSender = selectedEmail.From;
+            emailInfoService.EmailRecipient = selectedEmail.To;
             emailInfoService.EmailSubject = selectedEmail.Subject;
             emailInfoService.EmailReplyGenConfirmed = true;
             Navigation.NavigateTo("/Chatbot");

@@ -12,6 +12,12 @@
         internal string EmailSender { get; set; } = string.Empty;
 
         /// <summary>
+        /// Gets or sets the email recipient.
+        /// </summary>
+        /// <value>The email recipient.</value>
+        internal string EmailRecipient { get; set; } = string.Empty;
+
+        /// <summary>
         /// Gets or sets the email content.
         /// </summary>
         /// <value>The email content.</value>

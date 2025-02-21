@@ -25,7 +25,7 @@ namespace MailAssistant.BlazorWebApp.Components.Pages
                     StateHasChanged();
                     await JSHelper.CallJavaScriptFunctionAsync(JS, "scrollToBottom");
                     var emailReplyGenPrompt = File.ReadAllText(appSettings.Value.Prompts.EmailReplyGenerator);
-                    await GetAssistantReply($"{emailReplyGenPrompt}from:{emailInfoService.EmailSender}sub:{emailInfoService.EmailSubject}body:{emailInfoService.Email}");
+                    await GetAssistantReply($"{emailReplyGenPrompt}from:{emailInfoService.EmailSender}to(my email):{emailInfoService.EmailRecipient}sub:{emailInfoService.EmailSubject}body:{emailInfoService.Email}");
                     StateHasChanged();
                     await JSHelper.CallJavaScriptFunctionAsync(JS, "scrollToBottom");
                     emailInfoService.EmailReplyGenConfirmed = false;
