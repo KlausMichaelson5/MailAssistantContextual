@@ -13,7 +13,7 @@ namespace MailAssistant.Helpers.KernelFunction
         /// </summary>
         /// <returns>A string with the options for the user to choose from.</returns>
         [KernelFunction("prompt_user")]
-        [Description("Prompts the user with options when they first enter the chatbot or when the greet the chatbot or ask chatbot it's function.. After executing this wait for user response and compulsorily executr 'handle_choice' kernel function next")]
+        [Description("Prompts the user with options when they first enter the chatbot or when the greet the chatbot or ask chatbot it's function.. After executing this wait for user response and compulsorily execute 'handle_choice' kernel function next")]
         public async Task<string> PromptUser()
         {
             string options = "Welcome! How can I assist you today?\n" +
