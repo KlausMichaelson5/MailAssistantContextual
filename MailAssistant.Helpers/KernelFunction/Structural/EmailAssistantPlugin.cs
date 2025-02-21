@@ -13,14 +13,14 @@ namespace MailAssistant.Helpers.KernelFunction
         /// </summary>
         /// <returns>A string with the options for the user to choose from.</returns>
         [KernelFunction("prompt_user")]
-        [Description("Prompts the user with options when they first enter the chatbot or when the greet the chatbot or ask chatbot it's function..")]
+        [Description("Prompts the user with options when they first enter the chatbot or when the greet the chatbot or ask chatbot it's function.. After executing this wait for user response and compulsorily executr 'handle_choice' kernel function next")]
         public async Task<string> PromptUser()
         {
             string options = "Welcome! How can I assist you today?\n" +
                              "1) Email-related grammar questions\n" +
                              "2) Request sample generic emails for various situations\n" +
                              "3) Generate an email based on provided data\n" +
-                             "4) Generate a personalized email to our hotel customer\n" +
+                             "4) Generate a personalized response mail to our hotel customer\n" +
                              "5) Modify an existing email";
             return await Task.FromResult(options);
         }
@@ -43,7 +43,7 @@ namespace MailAssistant.Helpers.KernelFunction
                 case 3:
                     return await Task.FromResult("Please provide the data for the email you want to generate.");
                 case 4:
-                    return await Task.FromResult("Please provide the email id of the customer to check on their past bookings and generate personalized response.");
+                    return await Task.FromResult("1. Who is the customer you would like to respond to (please provide the email id)?\r\n2. What specific information or message would you like to convey to them in the email?\r\n3. What tone or type of email do you prefer (e.g., professional, casual, friendly)?.");
                 case 5:
                     return await Task.FromResult("Please provide the existing email you want to modify.");
                 default:
