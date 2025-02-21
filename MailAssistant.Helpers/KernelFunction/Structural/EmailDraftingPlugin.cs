@@ -22,13 +22,13 @@ namespace MailAssistant.Helpers.KernelFunction
         }
 
         /// <summary>
-        /// Generates a closing for the email based on the sender's name and title.
+        /// Generates a closing for the email based on the sender's name.
         /// </summary>
         /// <param name="senderName">The name of the email sender.</param>
         /// <param name="senderTitle">The title of the email sender.</param>
         /// <returns>A closing string.</returns>
         [KernelFunction("generate_closing")]
-        [Description("Generates a closing for the email based on the sender's name and title.After body this will be added")]
+        [Description("Generates a closing for the email based on the sender's name.After body this will be added")]
         public async Task<string> GenerateClosing(string senderName)
         {
             return await Task.FromResult($"Best regards,\n{senderName}");

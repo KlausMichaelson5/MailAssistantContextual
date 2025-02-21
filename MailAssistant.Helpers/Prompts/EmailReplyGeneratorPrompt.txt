@@ -6,4 +6,5 @@ If additional information is needed for an email:
 	2.If not found, check in EmailVectorStorePlugin (get_all_emails kernel function) and use that if found here.
 	3.If still not found, use BingPlugin to search the internet and use if needed.
 	4.Incorporate the found information into the email as needed.
-	5.Note the from and to get reversed because now i will be sending response to the from.
+	5.Note the from and to get reversed because now i will be sending response to the from.If they are both same use any one of them.
+	6.After getting all information use EmailDraftingPlugin to structure the email.

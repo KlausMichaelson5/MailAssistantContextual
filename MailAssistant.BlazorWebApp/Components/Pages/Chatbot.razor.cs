@@ -19,17 +19,22 @@ namespace MailAssistant.BlazorWebApp.Components.Pages
         {
             if (firstRender)
             {
-                if (emailInfoService!=null && emailInfoService.EmailReplyGenConfirmed==true)
-                {
-                    messages.Add(new Message { Text = "Subject:"+emailInfoService.EmailSubject +"\n\n" + "Body:\n"+ emailInfoService.Email, MessageType = MessageType.User });
-                    StateHasChanged();
-                    await JSHelper.CallJavaScriptFunctionAsync(JS, "scrollToBottom");
-                    var emailReplyGenPrompt = File.ReadAllText(appSettings.Value.Prompts.EmailReplyGenerator);
-                    await GetAssistantReply($"{emailReplyGenPrompt}from:{emailInfoService.EmailSender}to(my email):{emailInfoService.EmailRecipient}sub:{emailInfoService.EmailSubject}body:{emailInfoService.Email}");
-                    StateHasChanged();
-                    await JSHelper.CallJavaScriptFunctionAsync(JS, "scrollToBottom");
-                    emailInfoService.EmailReplyGenConfirmed = false;
-                }
+                await GetPreviousChatState();
+            }
+        }
+
+        private async Task GetPreviousChatState()
+        {
+            if (emailInfoService != null && emailInfoService.EmailReplyGenConfirmed == true)
+            {
+                messages.Add(new Message { Text = "Subject:" + emailInfoService.EmailSubject + "\n\n" + "Body:\n" + emailInfoService.Email, MessageType = MessageType.User });
+                StateHasChanged();
+                await JSHelper.CallJavaScriptFunctionAsync(JS, "scrollToBottom");
+                var emailReplyGenPrompt = File.ReadAllText(appSettings.Value.Prompts.EmailReplyGenerator);
+                await GetAssistantReply($"{emailReplyGenPrompt}from:{emailInfoService.EmailSender}to(my email):{emailInfoService.EmailRecipient}sub:{emailInfoService.EmailSubject}body:{emailInfoService.Email}");
+                StateHasChanged();
+                await JSHelper.CallJavaScriptFunctionAsync(JS, "scrollToBottom");
+                emailInfoService.EmailReplyGenConfirmed = false;
             }
         }
 
