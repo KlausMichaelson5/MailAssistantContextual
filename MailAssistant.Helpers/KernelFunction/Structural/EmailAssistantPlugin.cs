@@ -20,7 +20,8 @@ namespace MailAssistant.Helpers.KernelFunction
                              "1) Email-related grammar questions\n" +
                              "2) Request sample generic emails for various situations\n" +
                              "3) Generate an email based on provided data\n" +
-                             "4) Modify an existing email";
+                             "4) Generate a personalized email to our hotel customer\n" +
+                             "5) Modify an existing email";
             return await Task.FromResult(options);
         }
 
@@ -42,6 +43,8 @@ namespace MailAssistant.Helpers.KernelFunction
                 case 3:
                     return await Task.FromResult("Please provide the data for the email you want to generate.");
                 case 4:
+                    return await Task.FromResult("Please provide the email id of the customer to check on their past bookings and generate personalized response.");
+                case 5:
                     return await Task.FromResult("Please provide the existing email you want to modify.");
                 default:
                     return await Task.FromResult("Invalid choice. Please select a valid option.");

@@ -6,7 +6,7 @@ using Microsoft.Extensions.Options;
 using MailAssistant.Services.Models.AppSettingsModels;
 using Microsoft.Extensions.Configuration;
 
-namespace MailAssistant.Services.Services.PluginIntegrationService
+namespace MailAssistant.Services.Helpers.PluginIntegrationService
 {
     public class WebSearchPlugin
     {

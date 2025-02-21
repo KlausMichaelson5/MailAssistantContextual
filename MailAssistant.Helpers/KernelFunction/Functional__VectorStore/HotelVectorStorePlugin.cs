@@ -61,14 +61,6 @@ namespace MailAssistant.Helpers.KernelFunction
             return allCustomers;
 
         }
-        ///Add functions here.
-        /* 
-          1.To add customer,bookings,rooms.
-          2.To get customer by email-normal text search. return HotelCustomerclass
-          3.To get past bookings of the customer-vector search. return BookingHistoryEmbedding
-
-          based on booking history:price,type of room,no of rooms booked response will be generated---will be told in prompt.        
-         
-         */
+       
     }
 }

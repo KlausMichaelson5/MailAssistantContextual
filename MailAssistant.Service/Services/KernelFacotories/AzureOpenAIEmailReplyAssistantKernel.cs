@@ -4,8 +4,7 @@ using Microsoft.SemanticKernel;
 using MailAssistant.Services.Interfaces;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.DependencyInjection;
-using MailAssistant.Services.Services.PluginIntegrationHelper;
-using MailAssistant.Services.Services.PluginIntegrationService;
+using MailAssistant.Services.Helpers.PluginIntegrationService;
 
 namespace MailAssistant.Services.Services.OpenAIHelper
 {
@@ -37,7 +36,7 @@ namespace MailAssistant.Services.Services.OpenAIHelper
 
             _azureVectorStorePluginAdder.AddEmailVectorStorePlugin(kernel).Wait();
             _azureVectorStorePluginAdder.AddHotelVectorStorePlugin(kernel).Wait();
-            //kernel.ImportPluginFromObject(_webSearchPlugin.GetAzureBingSearchPlugin(), "BingPlugin");
+            kernel.ImportPluginFromObject(_webSearchPlugin.GetAzureBingSearchPlugin(), "BingPlugin");
 
             return kernel;
         }

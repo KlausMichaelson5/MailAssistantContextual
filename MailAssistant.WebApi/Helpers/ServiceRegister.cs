@@ -1,11 +1,10 @@
 ﻿using MailAssistant.AzureAISearch.Interfaces;
 using MailAssistant.AzureAISearch.Services;
+using MailAssistant.Services.Helpers.PluginIntegrationService;
 using MailAssistant.Services.Interfaces;
 using MailAssistant.Services.Services;
 using MailAssistant.Services.Services.OpenAIHelper;
 using MailAssistant.Services.Services.OutlookServices;
-using MailAssistant.Services.Services.PluginIntegrationHelper;
-using MailAssistant.Services.Services.PluginIntegrationService;
 using MailAssistant.WebApi.Interfaces;
 using MailAssistant.WebApi.Services;
 using Microsoft.AspNetCore.Mvc;

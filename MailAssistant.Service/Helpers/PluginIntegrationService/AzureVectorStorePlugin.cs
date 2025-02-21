@@ -8,16 +8,16 @@ using Microsoft.SemanticKernel.Connectors.AzureOpenAI;
 using Microsoft.SemanticKernel.Connectors.AzureAISearch;
 using MailAssistant.Helpers.Models.Hotel;
 
-namespace MailAssistant.Services.Services.PluginIntegrationHelper
+namespace MailAssistant.Services.Helpers.PluginIntegrationService
 {
     public class AzureVectorStorePlugin
     {
-        #pragma warning disable SKEXP0010
+#pragma warning disable SKEXP0010
         private readonly IAzureTextEmbeddingService _azureTextEmbeddingGenerationService;
         private readonly IAzureVectorStoreService _vectorStoreService;
 
         private readonly AzureOpenAITextEmbeddingGenerationService _textEmbeddingGenerationService;
-        private readonly AzureAISearchVectorStore  _vectorStore;
+        private readonly AzureAISearchVectorStore _vectorStore;
 
         public AzureVectorStorePlugin(IAzureTextEmbeddingService azureTextEmbeddingGenerationService, IAzureVectorStoreService vectorStoreService)
         {
@@ -27,16 +27,16 @@ namespace MailAssistant.Services.Services.PluginIntegrationHelper
             _textEmbeddingGenerationService = _azureTextEmbeddingGenerationService.GetAzureOpenAITextEmbeddingGenerationService();
             _vectorStore = _vectorStoreService.GetAzureAISearchVectorStore();
         }
-        
+
         public async Task AddEmailVectorStorePlugin(Kernel kernel)
         {
 
             var emailsCollection = _vectorStore.GetCollection<string, Email>("email");
             await emailsCollection.CreateCollectionIfNotExistsAsync();
 
-            #pragma warning disable SKEXP0001
+#pragma warning disable SKEXP0001
             var emailsTextSearch = new VectorStoreTextSearch<Email>(emailsCollection, _textEmbeddingGenerationService);
-            #pragma warning restore SKEXP0001
+#pragma warning restore SKEXP0001
 
             var emailVectorStorePlugin = new EmailVectorStorePlugin(emailsTextSearch);
             kernel.Plugins.AddFromObject(emailVectorStorePlugin, "EmailVectorStorePlugin");
@@ -48,7 +48,7 @@ namespace MailAssistant.Services.Services.PluginIntegrationHelper
             var hotelCustomerCollection = _vectorStore.GetCollection<string, HotelCustomerVector>("hotelcustomer");
             await hotelCustomerCollection.CreateCollectionIfNotExistsAsync();
 
-            #pragma warning disable SKEXP0001
+#pragma warning disable SKEXP0001
             var hotelCustomerTextSearch = new VectorStoreTextSearch<HotelCustomerVector>(hotelCustomerCollection, _textEmbeddingGenerationService);
 #pragma warning restore SKEXP0001
 
