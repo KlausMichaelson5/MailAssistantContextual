@@ -37,7 +37,7 @@ namespace MailAssistant.Services.Services.OpenAIHelper
 
             _azureVectorStorePluginAdder.AddEmailVectorStorePlugin(kernel).Wait();
             _azureVectorStorePluginAdder.AddHotelVectorStorePlugin(kernel).Wait();
-            kernel.ImportPluginFromObject(_webSearchPlugin.GetAzureBingSearchPlugin(), "BingPlugin");
+            //kernel.ImportPluginFromObject(_webSearchPlugin.GetAzureBingSearchPlugin(), "BingPlugin");
 
             return kernel;
         }
