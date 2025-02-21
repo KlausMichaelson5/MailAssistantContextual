@@ -1,5 +1,4 @@
 ﻿using MailAssistant.Helpers.Models;
-using MailAssistant.Services.Interfaces;
 using MailAssistant.WebApi.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 

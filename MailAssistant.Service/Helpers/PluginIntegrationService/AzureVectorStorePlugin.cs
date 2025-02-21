@@ -52,11 +52,11 @@ namespace MailAssistant.Services.Helpers.PluginIntegrationService
             var hotelCustomerTextSearch = new VectorStoreTextSearch<HotelCustomerVector>(hotelCustomerCollection, _textEmbeddingGenerationService);
 #pragma warning restore SKEXP0001
 
-            var hotelCustomerVectorStorePlugin = new HotelVectorStorePlugin(hotelCustomerTextSearch);
+            var hotelCustomerVectorStorePlugin = new HotelVectorStorePlugin(hotelCustomerTextSearch); 
             kernel.Plugins.AddFromObject(hotelCustomerVectorStorePlugin, "HotelVectorStorePlugin");
 
-            var searchPlugin = hotelCustomerTextSearch.CreateWithGetTextSearchResults("HotelClientPlugin");
-            kernel.Plugins.Add(searchPlugin);
+            //var searchPlugin = hotelCustomerTextSearch.CreateWithGetTextSearchResults("HotelClientPlugin"); 
+            //kernel.Plugins.Add(searchPlugin);
         }
     }
 }

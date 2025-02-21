@@ -25,7 +25,7 @@ namespace MailAssistant.Helpers.KernelFunction
             HotelCustomerVector customer = new HotelCustomerVector();
             await foreach (HotelCustomerVector result in customerResult.Results)
             { 
-                if(result.Email==email) 
+                if(result.Email==email || result.Email==email.ToLower() || result.Email==email.ToUpper()) 
                 {
                     customer.Email = result.Email;
                     customer.FirstName = result.FirstName;

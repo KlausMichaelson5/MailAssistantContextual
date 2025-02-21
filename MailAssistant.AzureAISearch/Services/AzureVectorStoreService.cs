@@ -1,7 +1,5 @@
 ﻿using Azure;
-using Azure.Identity;
 using Azure.Search.Documents.Indexes;
-using Azure.Security.KeyVault.Secrets;
 using MailAssistant.AzureAISearch.Interfaces;
 using MailAssistant.AzureAISearch.Models.AppSettingsModels;
 using Microsoft.Extensions.Configuration;
