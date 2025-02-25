@@ -20,12 +20,12 @@ namespace MailAssistant.Helpers.KernelFunction
         public async Task<HotelCustomerVector> GetHotelCustomer(string email)
         {
             //just a poc need to review and change below function
-            var query = "get_matching_customer";
+            var query = "get matching customer with email id: " + email;
             KernelSearchResults<object> customerResult = await _hotelVectors.GetSearchResultsAsync(query);
             HotelCustomerVector customer = new HotelCustomerVector();
             await foreach (HotelCustomerVector result in customerResult.Results)
             { 
-                if(result.Email==email || result.Email==email.ToLower() || result.Email==email.ToUpper()) 
+                if(result.Email.ToLower() == email.ToLower()) 
                 {
                     customer.Email = result.Email;
                     customer.FirstName = result.FirstName;
