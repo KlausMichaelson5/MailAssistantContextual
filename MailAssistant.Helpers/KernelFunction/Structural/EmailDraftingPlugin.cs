@@ -1,5 +1,7 @@
-﻿using Microsoft.SemanticKernel;
+﻿using Microsoft.Office.Interop.Outlook;
+using Microsoft.SemanticKernel;
 using System.ComponentModel;
+using System.Runtime.InteropServices;
 
 namespace MailAssistant.Helpers.KernelFunction
 {
@@ -8,6 +10,14 @@ namespace MailAssistant.Helpers.KernelFunction
     /// </summary>
     public class EmailDraftingPlugin
     {
+        private string currentUserName = string.Empty;
+        public EmailDraftingPlugin()
+        {
+            Application outlookApplication = new Application();
+            NameSpace outlookNamespace = outlookApplication.GetNamespace("MAPI");
+            Recipient currentUser = outlookNamespace.CurrentUser;
+            currentUserName = currentUser.Name; 
+        }
         /// <summary>
         /// Generates the body of the email based on the provided context and purpose.
         /// </summary>
@@ -28,10 +38,10 @@ namespace MailAssistant.Helpers.KernelFunction
         /// <param name="senderTitle">The title of the email sender.</param>
         /// <returns>A closing string.</returns>
         [KernelFunction("generate_closing")]
-        [Description("Generates a closing for the email based on the sender's name.After body this will be added")]
-        public async Task<string> GenerateClosing(string senderName)
+        [Description("Generates a closing for the email. After body this will be added")]
+        public async Task<string> GenerateClosing()
         {
-            return await Task.FromResult($"Best regards,\n{senderName}");
+            return await Task.FromResult($"Best regards,\n{currentUserName}");
         }
     }
 }
