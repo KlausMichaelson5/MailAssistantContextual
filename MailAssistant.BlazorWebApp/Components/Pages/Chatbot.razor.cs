@@ -27,7 +27,7 @@ namespace MailAssistant.BlazorWebApp.Components.Pages
         {
             if (emailInfoService != null && emailInfoService.EmailReplyGenConfirmed == true)
             {
-                Message previousMessage = new Message { Text = "From:" + emailInfoService.EmailSender + "\n" + "To:" + emailInfoService.EmailRecipient + "\n" + "Subject:" + emailInfoService.EmailSubject + "\n\n" + "Body:\n" + emailInfoService.Email, MessageType = MessageType.User };
+                Message previousMessage = new Message { Text = "From:" + emailInfoService.EmailSender + "\n" + "To:" + emailInfoService.EmailRecipient + "\n\n" + "Subject:" + emailInfoService.EmailSubject + "\n" + "Body:\n" + emailInfoService.Email, MessageType = MessageType.User };
                 messages.Add(previousMessage);
                 StateHasChanged();
                 await JSHelper.CallJavaScriptFunctionAsync(JS, "scrollToBottom");

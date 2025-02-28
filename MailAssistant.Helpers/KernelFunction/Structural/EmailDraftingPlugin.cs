@@ -33,17 +33,5 @@ namespace MailAssistant.Helpers.KernelFunction
             return etiquetteRules.ContainsKey(tone) ? etiquetteRules[tone].ToString() : etiquetteRules["Proffesional"].ToString();
         }
 
-        /// <summary>
-        /// Generates a closing for the email based on the sender's name.
-        /// </summary>
-        /// <param name="senderName">The name of the email sender.</param>
-        /// <param name="senderTitle">The title of the email sender.</param>
-        /// <returns>A closing string.</returns>
-        [KernelFunction("generate_closing")]
-        [Description("Generates a closing for the email.")]
-        public async Task<string> GenerateClosing()
-        {
-            return await Task.FromResult($"Best regards,\n{currentUserName}");
-        }
     }
 }
