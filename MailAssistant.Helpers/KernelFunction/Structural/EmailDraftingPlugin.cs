@@ -18,17 +18,19 @@ namespace MailAssistant.Helpers.KernelFunction
             Recipient currentUser = outlookNamespace.CurrentUser;
             currentUserName = currentUser.Name; 
         }
-        /// <summary>
-        /// Generates the body of the email based on the provided context and purpose.
-        /// </summary>
-        /// <param name="context">The context of the email.</param>
-        /// <param name="purpose">The purpose of the email.</param>
-        /// <returns>The body of the email.</returns>
-        [KernelFunction("generate_body")]
-        [Description("Generates the body of the email based on the provided context and purpose.After greeting this will be added")]
-        public async Task<string> GenerateBody(string context, string purpose)
+
+        [KernelFunction("enforce_email_etiquette")]
+        [Description("Compulsorily to be used when geenrating email")]
+        public  string EnforceEmailEtiquette(string tone)
         {
-            return await Task.FromResult($"I hope this message finds you well. I am writing to {purpose}. {context}");
+            var etiquetteRules = new Dictionary<string, (string Salutation, string SignOff, List<string> PolitePhrases)>
+            {
+                ["Professional"] = ("Dear [Recipient],", $"Best regards,\n{currentUserName}", new List<string> { "Please", "Thank you", "Kindly" }),
+                ["Casual"] = ("Hi [Recipient],", $"Cheers,\n{currentUserName}", new List<string> { "Thanks", "Cheers", "Take care" }),
+                ["Friendly"] = ("Hey [Recipient],", $"Best,\n{currentUserName}", new List<string> { "Thanks a lot", "Catch you later", "Best wishes" })
+            };
+
+            return etiquetteRules.ContainsKey(tone) ? etiquetteRules[tone].ToString() : etiquetteRules["Proffesional"].ToString();
         }
 
         /// <summary>
@@ -38,7 +40,7 @@ namespace MailAssistant.Helpers.KernelFunction
         /// <param name="senderTitle">The title of the email sender.</param>
         /// <returns>A closing string.</returns>
         [KernelFunction("generate_closing")]
-        [Description("Generates a closing for the email. After body this will be added")]
+        [Description("Generates a closing for the email.")]
         public async Task<string> GenerateClosing()
         {
             return await Task.FromResult($"Best regards,\n{currentUserName}");
