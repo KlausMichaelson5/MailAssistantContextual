@@ -1,10 +1,4 @@
-﻿The below is email subject and body I have recieved.
-Can you help me generate reply to it.
-
-If additional information is needed for an email:
-	1.Check HotelClientPlugin/HotelVectorStorePlugin (textSearch plugin) for the required information and use that if found here.
-	2.If not found, check in EmailVectorStorePlugin (get_all_emails kernel function) and use that if found here.
-	3.If still not found, use BingPlugin to search the internet and use if needed.
-	4.Incorporate the found information into the email as needed.
+﻿I need in help in generating the email below i have all details of email.
+The email is sent to me and i need to reply back.
 
 use proffesional tone
